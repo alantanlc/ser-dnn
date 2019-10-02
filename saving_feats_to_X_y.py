@@ -32,12 +32,16 @@
 #   change the main_dir accordingly...
 main_dir = './Audio_Speech_Actors_01-24'
 sub_dir = os.listdir(main_dir)
+
 print('\ncollecting features and labels...')
 print('\nthis will take some time...')
 features, labels = parse_audio_files(main_dir, sub_dir)
 print('done')
+
 np.save('X', features)
+
 # one hot encoding labels
 labels = one_hot_encode(labels)
 np.save('y', labels)
+
 print('\nEnd of program')
