@@ -1,0 +1,17 @@
+# Alan Tan
+
+name: ser_dnn
+
+dependencies:
+
+  # basi
+  - python=3.5
+  - keras
+  - tensorflow
+  - scikit-learn
+  - numpy
+  - seaborn
+  - matplotlib
+  - pandas
+  - pip:
+    - librosa
