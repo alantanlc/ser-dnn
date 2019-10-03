@@ -61,16 +61,16 @@ def one_hot_encode(labels):
 # labels = one_hot_encode(labels)
 # np.save('y', labels)
 
-X = np.load('X.npy')
-y = np.load('y.npy')
-train_x, test_x, train_y, test_y = train_test_split(X, y, test_size=0.33, random_state=42)
+# X = np.load('X.npy')
+# y = np.load('y.npy')
+# train_x, test_x, train_y, test_y = train_test_split(X, y, test_size=0.33, random_state=42)
 
-n_dim = train_x.shape[1]
-n_classes = train_y.shape[1]
-n_hidden_units_1 = n_dim
-n_hidden_units_2 = 400 # approx n_dim * 2
-n_hidden_units_3 = 200 # half of layer 2
-n_hidden_units_4 = 100
+# n_dim = train_x.shape[1]
+# n_classes = train_y.shape[1]
+# n_hidden_units_1 = n_dim
+# n_hidden_units_2 = 400 # approx n_dim * 2
+# n_hidden_units_3 = 200 # half of layer 2
+# n_hidden_units_4 = 100
 
 def create_model(activation_function='relu', init_type='normal', optimiser='adam', dropout_rate=0.2):
     model = Sequential()
@@ -92,27 +92,34 @@ def create_model(activation_function='relu', init_type='normal', optimiser='adam
     return model
 
 # create the mode
-model = create_model()
+# model = create_model()
 
 # train the model
-history = model.fit(train_x, train_y, epochs=200, batch_size=4)
+# history = model.fit(train_x, train_y, epochs=200, batch_size=4)
 
 # predicting from the model
-predict = model.predict(test_x, batch_size=4)
+# predict = model.predict(test_x, batch_size=4)
 
 # predicted emotions from the test set
-emotions = ['neutral', 'calm', 'happy', 'sad', 'angry', 'fearful', 'disgust', 'surprised']
-y_pred = np.argmax(predict, 1)
-predicted_emo = []
-for i in range(0, test_y.shape[0]):
-    emo = emotions[y_pred[i]]
-    predicted_emo.append(emo)
+# emotions = ['neutral', 'calm', 'happy', 'sad', 'angry', 'fearful', 'disgust', 'surprised']
+# y_pred = np.argmax(predict, 1)
+# predicted_emo = []
+# for i in range(0, test_y.shape[0]):
+#     emo = emotions[y_pred[i]]
+#     predicted_emo.append(emo)
+# np.save('predicted_emo', predicted_emo)
 
-actual_emo = []
-y_true = np.argmax(test_y, 1)
-for i in range(0, test_y.shape[0]):
-    emo = emotions[y_true[i]]
-    actual_emo.append(emo)
+# actual emotions from the test set
+# actual_emo = []
+# y_true = np.argmax(test_y, 1)
+# for i in range(0, test_y.shape[0]):
+#     emo = emotions[y_true[i]]
+#     actual_emo.append(emo)
+# np.save('actual_emo', actual_emo)
+
+# load predicted and actual emotions
+predicted_emo = np.load('predicted_emo.npy')
+actual_emo = np.load('actual_emo.npy')
 
 # generate the confusion matrix
 cm = confusion_matrix(actual_emo, predicted_emo)
@@ -121,5 +128,5 @@ columns = ['angry', 'calm', 'disgust', 'fearful', 'happy', 'neutral', 'sad', 'su
 cm_df = pd.DataFrame(cm, index, columns)
 plt.figure(figsize=(10,6))
 sns.heatmap(cm_df, annot=True)
-
+plt.show()
 print('End of program')
